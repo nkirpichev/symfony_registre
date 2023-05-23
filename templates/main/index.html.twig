@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello MainController!{% endblock %}
+{% block title %}Registre{% endblock %}
 
 {% block body %}
 <style>
@@ -9,12 +9,12 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <h1>Registre</h1>
 
     This friendly message is coming from:
     <ul>
-        <li>Your controller at <code><a href="{{ '/var/www/html/registre/src/Controller/MainController.php'|file_link(0) }}">src/Controller/MainController.php</a></code></li>
-        <li>Your template at <code><a href="{{ '/var/www/html/registre/templates/main/index.html.twig'|file_link(0) }}">templates/main/index.html.twig</a></code></li>
+        <li><a href="{{ path('app_client_index') }}">Clients</a></code></li>
+        
     </ul>
 </div>
 {% endblock %}
