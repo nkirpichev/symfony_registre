@@ -33,12 +33,6 @@ class EntrepriseController extends AbstractController
 
             return $this->redirectToRoute('app_entreprise', [], Response::HTTP_SEE_OTHER);}
 
-        elseif($form->isSubmitted()){
-            return $this->redirectToRoute('app_entreprise', [], Response::HTTP_SEE_OTHER);
-        }
-
-
-
         return $this->renderForm('entreprise/edit.html.twig', [
             'form' => $form,
         ]);
@@ -72,8 +66,10 @@ class EntrepriseController extends AbstractController
     #[Route('/entreprise/{id}', name: 'app_entreprise_detail')]
     public function index_detail(EntrepriseRepository $entrepriseRepository, $id): Response
     {
+        
+        
         return $this->render('entreprise/index.html.twig', [
-            'entreprises' => $entrepriseRepository->findAll()
+            'entreprise' => $entrepriseRepository->findById($id)
         ]);
     }
 

@@ -23,9 +23,9 @@
         {% for client in entreprises %}
             <tr>
                 <td>{{ client.id }}</td>
-                <td>{{ client.nom }}</td>
+                <td><a href="{{ path('app_entreprise_detail', {'id': client.id}) }}">{{ client.nom }}</a></td>
                 <td>
-                    <a href="{{ path('app_entreprise_detail', {'id': client.id}) }}">detail</a>
+                    
                     <a href="{{ path('app_entreprise_edit', {'id': client.id}) }}">edit</a>
                 </td>
             </tr>
