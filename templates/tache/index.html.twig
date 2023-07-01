@@ -23,7 +23,7 @@
             <tr>
                 <td>{{ tache.id }}</td>
                 <td>{{ tache.projet }}</td>
-                <td>{{ tache.description }}</td>
+                <td><a href="{{ path('app_tache_show', {'id': tache.id}) }}">{{ tache.description }}</a></td>
                 <td>{{ tache.dateDebut ? tache.dateDebut|date('Y-m-d') : '' }}</td>
                 <td>{{ tache.dateAchevement ? tache.dateAchevement|date('Y-m-d') : '' }}</td>
                 <td>{{ tache.nombreHeure }}</td>

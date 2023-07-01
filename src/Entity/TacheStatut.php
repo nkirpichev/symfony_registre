@@ -68,4 +68,9 @@ class TacheStatut
     {
         return $this->statut->getNom();//$this->dateAchevement->format('Y/m/d')." - ".
     }
+
+    public function showStatusDate()
+    {
+        return $this->statut->getNom()." - ".$this->dateChangement->format('Y/m/d');
+    }
 }

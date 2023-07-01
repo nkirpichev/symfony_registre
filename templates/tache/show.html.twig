@@ -35,12 +35,31 @@
                 <th>Nombre heure</th>
                 <td>{{ tache.nombreHeure }}</td>
             </tr>
+           <tr>
+                <th>Status</th>
+                <td>{{ tache.laststatut }}</td>
+            </tr>
             <tr>
                 <th>Commentaire</th>
                 <td>{{ tache.commentaire }}</td>
             </tr>
         </tbody>
     </table>
+
+    <div class = "pt-4 px-4">
+    <h3>Histoire de statut</h3>
+
+        <ul>  
+        {% for status in tache.tacheStatuts %}
+
+            <li>{{ status.showStatusDate}}</li>
+
+        {% else %}
+             <li colspan="3">no records found</li>
+        {% endfor %}
+        </ul>
+         
+    </div>
 
 
 
