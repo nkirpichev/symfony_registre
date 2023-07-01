@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit TacheStatut{% endblock %}
+
+{% block body %}
+    <h1>Edit TacheStatut</h1>
+
+    {{ include('tache_statut/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_tache_statut_index') }}">back to list</a>
+
+    {{ include('tache_statut/_delete_form.html.twig') }}
+{% endblock %}

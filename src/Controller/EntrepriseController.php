@@ -21,9 +21,9 @@ class EntrepriseController extends AbstractController
     {
 
         $form = $this->CreateFormBuilder($ent)
-        ->add('nom', TextType::Class)
-        ->add('valider',SubmitType::Class, array('attr'=>array('class'=>'btn btn-primary')))
-        ->add('annuler',ResetType::Class, array('attr'=>array('class'=>'btn btn-secondary')))
+        ->add('nom', TextType::class)
+        ->add('valider',SubmitType::class, array('attr'=>array('class'=>'btn btn-primary')))
+        ->add('annuler',ResetType::class, array('attr'=>array('class'=>'btn btn-secondary')))
         ->getForm();
         
         $form->handleRequest($request);
@@ -43,9 +43,9 @@ class EntrepriseController extends AbstractController
     {
         $ent = new Entreprise();
         $form = $this->CreateFormBuilder($ent)
-        ->add('nom', TextType::Class)
-        ->add('valider',SubmitType::Class, array('attr'=>array('class'=>'btn btn-primary')))
-        ->add('annuler',ResetType::Class, array('attr'=>array('class'=>'btn btn-secondary')))
+        ->add('nom', TextType::class)
+        ->add('valider',SubmitType::class, array('attr'=>array('class'=>'btn btn-primary')))
+        ->add('annuler',ResetType::class, array('attr'=>array('class'=>'btn btn-secondary')))
         ->getForm();
         
         $form->handleRequest($request);
@@ -64,12 +64,13 @@ class EntrepriseController extends AbstractController
     }
 
     #[Route('/entreprise/{id}', name: 'app_entreprise_detail')]
-    public function index_detail(EntrepriseRepository $entrepriseRepository, $id): Response
+    public function index_detail(Entreprise $entreprise, $id): Response
     {
         
         
-        return $this->render('entreprise/index.html.twig', [
-            'entreprises' => $entrepriseRepository->findById($id)
+        return $this->render('entreprise/show.html.twig', [
+            'entreprise' => $entreprise, 'employes'=> $entreprise->getPersonnes(),
+            'projets'=> $entreprise->getProjets()
         ]);
     }
 
@@ -79,5 +80,15 @@ class EntrepriseController extends AbstractController
         return $this->render('entreprise/index.html.twig', [
             'entreprises' => $entrepriseRepository->findAll()
         ]);
+    }
+
+    #[Route('/entreprise/{id}', name: 'app_entreprise_delete', methods: ['POST'])]
+    public function delete(Request $request, Entreprise $entreprise, EntrepriseRepository $entrepriseRepository): Response
+    {
+        if ($this->isCsrfTokenValid('delete'.$entreprise->getId(), $request->request->get('_token'))) {
+            $entrepriseRepository->remove($entreprise, true);
+        }
+
+        return $this->redirectToRoute('app_entreprise_index', [], Response::HTTP_SEE_OTHER);
     }
 }

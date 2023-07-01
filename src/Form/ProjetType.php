@@ -8,6 +8,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 
 class ProjetType extends AbstractType
 {
@@ -15,7 +16,7 @@ class ProjetType extends AbstractType
     {
         $builder
             ->add('nom')
-            ->add('dateProjet')
+            ->add('dateProjet',DateType::class,array( 'widget'=>'single_text'))
             ->add('tauxHeure')
             ->add('entreprise', EntityType::class, ['class'=>Entreprise::class, 'expanded'=>false])
         ;

@@ -39,6 +39,18 @@ class TacheRepository extends ServiceEntityRepository
         }
     }
 
+   public function findLastStatut($value): array
+   {
+       return $this->createQueryBuilder('tache_statut as t')
+           ->andWhere('t.tache_id = :val')
+           ->setParameter('val', $value)
+           ->orderBy('t.date', 'ASC')
+           ->setMaxResults(10)
+           ->getQuery()
+           ->getResult()
+       ;
+   }
+
 //    /**
 //     * @return Tache[] Returns an array of Tache objects
 //     */

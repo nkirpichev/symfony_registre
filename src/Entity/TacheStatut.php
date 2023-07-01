@@ -63,4 +63,9 @@ class TacheStatut
 
         return $this;
     }
+    
+    public function __toString()
+    {
+        return $this->statut->getNom();//$this->dateAchevement->format('Y/m/d')." - ".
+    }
 }

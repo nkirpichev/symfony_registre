@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Tache;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -13,8 +14,8 @@ class TacheType extends AbstractType
     {
         $builder
             ->add('description')
-            ->add('dateDebut')
-            ->add('dateAchevement')
+            ->add('dateDebut',DateType::class,array( 'widget'=>'single_text'))
+            ->add('dateAchevement',DateType::class,array( 'widget'=>'single_text' , "required" =>false ))
             ->add('nombreHeure')
             ->add('commentaire')
             ->add('projet')

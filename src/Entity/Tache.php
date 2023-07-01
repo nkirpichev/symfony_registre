@@ -44,6 +44,7 @@ class Tache
     private ?Categorie $categorie = null;
 
     #[ORM\OneToMany(mappedBy: 'tache', targetEntity: TacheStatut::class)]
+    #[ORM\OrderBy(['dateChangement'=>'desc'])]
     private Collection $tacheStatuts;
 
     public function __construct()
@@ -171,7 +172,11 @@ class Tache
     {
         return $this->tacheStatuts;
     }
-
+    public function getLastStatut(): ?TacheStatut
+    {
+        return $this->tacheStatuts[0];
+    }
+    
     public function addTacheStatut(TacheStatut $tacheStatut): self
     {
         if (!$this->tacheStatuts->contains($tacheStatut)) {
@@ -192,5 +197,10 @@ class Tache
         }
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->description;//$this->dateAchevement->format('Y/m/d')." - ".
     }
 }

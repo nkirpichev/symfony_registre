@@ -7,13 +7,14 @@
 
     <table class="table">
         <thead>
-            <tr>
+            <tr class="text-center">
                 <th>Id</th>
+                <th>Projet</th>
                 <th>Description</th>
-                <th>DateDebut</th>
-                <th>DateAchevement</th>
-                <th>NombreHeure</th>
-                <th>Commentaire</th>
+                <th>Date debut</th>
+                <th>Date achevement</th>
+                <th>Nombre heure</th>
+                <th>Statut</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -21,11 +22,12 @@
         {% for tache in taches %}
             <tr>
                 <td>{{ tache.id }}</td>
+                <td>{{ tache.projet }}</td>
                 <td>{{ tache.description }}</td>
                 <td>{{ tache.dateDebut ? tache.dateDebut|date('Y-m-d') : '' }}</td>
                 <td>{{ tache.dateAchevement ? tache.dateAchevement|date('Y-m-d') : '' }}</td>
                 <td>{{ tache.nombreHeure }}</td>
-                <td>{{ tache.commentaire }}</td>
+                <td>{{ tache.laststatut }}</td>
                 <td>
                     <a href="{{ path('app_tache_show', {'id': tache.id}) }}">show</a>
                     <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
@@ -39,5 +41,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tache_new') }}">Create new</a>
+    <a href="{{ path('app_tache_new', {'projet_id': 0}) }}">Create new</a>
 {% endblock %}
