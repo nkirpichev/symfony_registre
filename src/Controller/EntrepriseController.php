@@ -69,7 +69,7 @@ class EntrepriseController extends AbstractController
         
         
         return $this->render('entreprise/index.html.twig', [
-            'entreprise' => $entrepriseRepository->findById($id)
+            'entreprises' => $entrepriseRepository->findById($id)
         ]);
     }
 
