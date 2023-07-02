@@ -39,6 +39,16 @@ class StatutRepository extends ServiceEntityRepository
         }
     }
 
+    public function findOneByNom($value): ?Statut
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.nom = :val')
+            ->setParameter('val', $value)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
 //    /**
 //     * @return Statut[] Returns an array of Statut objects
 //     */

@@ -3,10 +3,14 @@
 namespace App\Controller;
 
 use App\Entity\Projet;
+use App\Entity\Statut;
 use App\Entity\Tache;
+use App\Entity\TacheStatut;
 use App\Form\TacheType;
 use App\Repository\ProjetRepository;
+use App\Repository\StatutRepository;
 use App\Repository\TacheRepository;
+use App\Repository\TacheStatutRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -23,9 +27,24 @@ class TacheController extends AbstractController
             'taches' => $tacheRepository->findAll(),
         ]);
     }
+   
+    #[Route('/encours', name: 'app_tache_encours_index', methods: ['GET', 'POST'])]
+    public function indexStatus(TacheStatutRepository $tacheStatutRepository): Response
+    {
+        $taches = array();
+        $tacheStatut = $tacheStatutRepository->findByLastStatus(2);
+        
+        foreach($tacheStatut as $ts){
+            //$taches[]=$ts->getTache();
+        }
+
+        return $this->render('tache/index1.html.twig', [
+            'taches' => $tacheStatut,
+        ]);
+    }
 
     #[Route('/new/{projet_id<\d+>}', name: 'app_tache_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, TacheRepository $tacheRepository, ProjetRepository $projetRepository, $projet_id): Response
+    public function new(Request $request, TacheRepository $tacheRepository, ProjetRepository $projetRepository, $projet_id, StatutRepository $statutRepository, TacheStatutRepository $tacheStatutRepository): Response
     {
         $tache = new Tache();
         $tache->setDateDebut(new DateTime('now'));
@@ -37,8 +56,16 @@ class TacheController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            
             $tacheRepository->save($tache, true);
-
+            
+            $tacheStatut = new TacheStatut();
+            $tacheStatut->setTache($tache);
+            $statutNouvelle = $statutRepository->find(1);
+            $tacheStatut->setStatut($statutNouvelle);
+            $tacheStatut->setDateChangement(new DateTime('now'));
+            $tacheStatutRepository->save($tacheStatut, true);
+           
             return $this->redirectToRoute('app_tache_index', [], Response::HTTP_SEE_OTHER);
         }
 

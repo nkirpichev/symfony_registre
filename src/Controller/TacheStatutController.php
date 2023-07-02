@@ -4,11 +4,13 @@ namespace App\Controller;
 
 use App\Entity\TacheStatut;
 use App\Form\TacheStatutType;
+use App\Repository\TacheRepository;
 use App\Repository\TacheStatutRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use DateTime;
 
 #[Route('/tache/statut')]
 class TacheStatutController extends AbstractController
@@ -21,17 +23,21 @@ class TacheStatutController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_tache_statut_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, TacheStatutRepository $tacheStatutRepository): Response
+    #[Route('/new/{tache_id<\d+>}', name: 'app_tache_statut_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, TacheStatutRepository $tacheStatutRepository, TacheRepository $tacheRepository,$tache_id): Response
     {
         $tacheStatut = new TacheStatut();
+        $tacheStatut->setDateChangement(new DateTime('now'));
+        if(isset($tache_id) && $tache_id != 0) {
+            $tacheStatut->setTache($tacheRepository->find($tache_id));};
+
         $form = $this->createForm(TacheStatutType::class, $tacheStatut);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $tacheStatutRepository->save($tacheStatut, true);
 
-            return $this->redirectToRoute('app_tache_statut_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_tache_show', ['id' => $tache_id], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('tache_statut/new.html.twig', [

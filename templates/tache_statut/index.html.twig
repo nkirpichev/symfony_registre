@@ -3,13 +3,15 @@
 {% block title %}TacheStatut index{% endblock %}
 
 {% block body %}
-    <h1>TacheStatut index</h1>
+    <h1>Liste de status de taches</h1>
 
-    <table class="table">
+    <table class="table mx-3 fs-6">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>DateChangement</th>
+                <th>Date changement</th>
+                <th>Tache</th>
+                <th>Statut</th>
                 <th>actions</th>
             </tr>
         </thead>
@@ -18,6 +20,8 @@
             <tr>
                 <td>{{ tache_statut.id }}</td>
                 <td>{{ tache_statut.dateChangement ? tache_statut.dateChangement|date('Y-m-d') : '' }}</td>
+                 <td><a href="{{ path('app_tache_show', {'id': tache_statut.tache.id}) }}">{{ tache_statut.tache }}</a></td>
+                <td>{{ tache_statut.statut }}</td>
                 <td>
                     <a href="{{ path('app_tache_statut_show', {'id': tache_statut.id}) }}">show</a>
                     <a href="{{ path('app_tache_statut_edit', {'id': tache_statut.id}) }}">edit</a>
@@ -31,5 +35,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_tache_statut_new') }}">Create new</a>
+    <a href="{{ path('app_tache_statut_new', {'tache_id': 0}) }}">Create new</a>
 {% endblock %}

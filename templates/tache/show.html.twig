@@ -6,10 +6,11 @@
     <h1>Detail de tache - {{tache.description }}</h1>
       <div class="d-flex flex-row px-2">
         <a class='mx-2' href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
+        <a class='mx-2' href="{{ path('app_tache_statut_new', {'tache_id': tache.id}) }}">change statut</a>
         <a class='mx-2' href="{{ path('app_tache_index') }}">back to list</a>
     </div>
 
-    <table class="table">
+    <table class="table mx-3">
         <tbody>
             <tr>
                 <th>Id</th>
@@ -36,8 +37,8 @@
                 <td>{{ tache.nombreHeure }}</td>
             </tr>
            <tr>
-                <th>Status</th>
-                <td>{{ tache.laststatut }}</td>
+                <th>Statut</th>
+                <td><a href="{{ path('app_tache_statut_show', {'id':  tache.laststatut ? tache.laststatut.id :0  }) }}">{{ tache.laststatut }}</a></td>
             </tr>
             <tr>
                 <th>Commentaire</th>

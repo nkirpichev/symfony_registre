@@ -2,11 +2,14 @@
 
 namespace App\Form;
 
+use App\Entity\Statut;
+use App\Entity\Tache;
 use App\Entity\TacheStatut;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class TacheStatutType extends AbstractType
 {
@@ -14,8 +17,8 @@ class TacheStatutType extends AbstractType
     {
         $builder
             ->add('dateChangement',DateType::class,array( 'widget'=>'single_text'))
-            ->add('tache')
-            ->add('statut')
+            ->add('tache', EntityType::class, ['class'=>Tache::class, 'expanded'=>false])
+            ->add('statut', EntityType::class, ['class'=>Statut::class, 'expanded'=>false])            
         ;
     }
 

@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\TacheStatut;
+use App\Entity\Statut;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -37,6 +38,34 @@ class TacheStatutRepository extends ServiceEntityRepository
         if ($flush) {
             $this->getEntityManager()->flush();
         }
+    }
+    
+    public function findByLastStatus($value): array
+    {
+ 
+     //$dql = "select t1, t2 from App\Entity\TacheStatut t1 join t1.tache t2 ";
+     //return $this->getEntityManager()
+    //     ->createQuery($dql)
+        // ->setParameter('nom',$value)
+       //  ->getResult();
+ //where t1.statut.id = :nom
+        return $this->createQueryBuilder('t')
+            //->select('t')
+            ->Select('st')
+            ->addSelect('ts')
+            ->addSelect('max(t.dateChangement)')
+            ->join('App\Entity\Statut','st')
+            ->join('App\Entity\Tache','ts')
+            ->groupBy('t.tache, t.statut')
+            //->groupBy('')
+            ->andHaving('t.statut = :val')
+            ->setParameter('val', $value)
+           // ->orderBy('t.date', 'DESC')
+            ->getQuery()
+            ->getResult()
+        ;
+
+
     }
 
 //    /**
