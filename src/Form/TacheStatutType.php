@@ -10,13 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class TacheStatutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
-            ->add('dateChangement',DateType::class,array( 'widget'=>'single_text'))
+          //  ->add('dateChangement',TextType::class)//,array( 'widget'=>'single_text')
             ->add('tache', EntityType::class, ['class'=>Tache::class, 'expanded'=>false])
             ->add('statut', EntityType::class, ['class'=>Statut::class, 'expanded'=>false])            
         ;

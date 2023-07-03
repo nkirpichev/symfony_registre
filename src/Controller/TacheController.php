@@ -39,11 +39,11 @@ class TacheController extends AbstractController
         }
        
         foreach($tacheStatut1 as $ts){
-           // $taches[]=$ts->getTache();
+            $taches[]=$ts->getTache();
         }
 
         return $this->render('tache/index.html.twig', [
-            'taches' => $taches,
+            'taches' => $taches, 'statut'=>'a faire'
         ]);
     }
 

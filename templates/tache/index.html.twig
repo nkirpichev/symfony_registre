@@ -3,7 +3,7 @@
 {% block title %}Tache index{% endblock %}
 
 {% block body %}
-    <h1>Liste des taches</h1>
+    <h1>Liste des taches {{statut is not defined?"":statut}}</h1>
 
     <table class="table mx-3 fs-6">
         <thead>

@@ -43,7 +43,7 @@
         <ul>  
         {% for tache in projet.taches %}
 
-            <li><a href="{{ path('app_tache_show', {'id': tache.id}) }}">{{ tache }}</a></li>
+            <li><a href="{{ path('app_tache_show', {'id': tache.id}) }}">{{ tache }} </a>- {{ tache.laststatut }}</li>
 
         {% else %}
              <li colspan="3">no records found</li>

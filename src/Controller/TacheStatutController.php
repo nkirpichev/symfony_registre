@@ -61,6 +61,7 @@ class TacheStatutController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $tacheStatut->setDateChangement(new DateTime('now'));
             $tacheStatutRepository->save($tacheStatut, true);
 
             return $this->redirectToRoute('app_tache_statut_index', [], Response::HTTP_SEE_OTHER);
@@ -68,7 +69,7 @@ class TacheStatutController extends AbstractController
 
         return $this->renderForm('tache_statut/edit.html.twig', [
             'tache_statut' => $tacheStatut,
-            'form' => $form,
+            'form' => $form
         ]);
     }
 
