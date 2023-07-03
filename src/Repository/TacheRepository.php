@@ -40,14 +40,56 @@ class TacheRepository extends ServiceEntityRepository
         }
     }
 
+    public function findLastByStatus($value): array
+    {
+ 
+     $conn = $this->getEntityManager()->getConnection();
+ 
+     $sql = '
+         SELECT t.* FROM tache_statut t
+         where not exists( select 1 from tache_statut t2
+                where t2.tache_id = t.tache_id and t2.date_changement>t.date_changement )
+            and t.statut_id = :value 
+         ';
+     $stmt = $conn->prepare($sql);
+     $resultSet = $stmt->executeQuery(['value' => $value]);
+
+     return $resultSet->fetchAllAssociative();
+    }
+
+
    public function findByStatus($value): array
    {
 
-    $dql = "select t from App\Entity\Tache join App\Entity\TacheStatut ts where ts.statut_id = :nom";
-    return $this->getEntityManager()
-        ->createQuery($dql)
-        ->setParameter('nom',$value)
-        ->getResult();
+    $conn = $this->getEntityManager()->getConnection();
+
+    $sql = '
+        SELECT t.tache_id, t.statut_id, max(t.date_changement) FROM tache_statut t
+        group by t.tache_id, t.statut_id
+        having t.statut_id = :value
+        ';
+    $stmt = $conn->prepare($sql);
+    $resultSet = $stmt->executeQuery(['value' => $value]);
+
+    // returns an array of arrays (i.e. a raw data set)
+    return $resultSet->fetchAllAssociative();
+
+        // 
+        // ORDER BY p.price ASC
+    //    return $this->createQueryBuilder('t')
+    //       // ->join('t.id', 'ts','WITH','ts.statut_id=:val')
+    //       // ->setParameter('val', $value)
+    //        //->orderBy('t.date', 'ASC')
+    //        ->andWhere("t.id in (select ts from App\Entity\TacheStatut ts)")
+    //        ->getQuery()
+    //        ->getResult()
+    //    ;
+
+    // $dql = "select t from App\Entity\Tache join App\Entity\TacheStatut ts where ts.statut_id = :nom";
+    // return $this->getEntityManager()
+    //     ->createQuery($dql)
+    //     ->setParameter('nom',$value)
+    //     ->getResult();
 
     //    return $this->createQueryBuilder('t')
     //        ->join('t.id', 'ts','WITH','ts.statut_id=:val')

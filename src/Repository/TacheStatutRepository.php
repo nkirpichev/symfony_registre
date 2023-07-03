@@ -40,9 +40,39 @@ class TacheStatutRepository extends ServiceEntityRepository
         }
     }
     
-    public function findByLastStatus($value): array
+    public function findLastByStatut($value): array
+       {
+     
+        return $this->createQueryBuilder('t')
+          // ->join('t.id', 'ts','WITH','ts.statut_id=:val')
+          // ->setParameter('val', $value)
+           //->orderBy('t.date', 'ASC')
+           ->andWhere("not exists( select 1 from App\Entity\TacheStatut t2
+                        where t2.tache = t.tache and t2.dateChangement>t.dateChangement )")
+           ->andWhere('t.statut = :val')
+           ->setParameter('val', $value)
+           ->getQuery()
+           ->getResult();
+        
+        // $conn = $this->getEntityManager()->getConnection();
+     
+        //  $sql = '
+        //      SELECT t.* FROM tache_statut t
+        //      where not exists( select 1 from tache_statut t2
+        //             where t2.tache_id = t.tache_id and t2.date_changement>t.date_changement)
+        //         and t.statut_id = :value 
+        //      ';
+        //  $stmt = $conn->prepare($sql);
+        //  $resultSet = $stmt->executeQuery(['value' => $value]);
+    
+        //  return $resultSet->fetchAllAssociative();
+    }    
+
+    public function findByLastStatusRRR($value): array
     {
- 
+
+
+
      //$dql = "select t1, t2 from App\Entity\TacheStatut t1 join t1.tache t2 ";
      //return $this->getEntityManager()
     //     ->createQuery($dql)

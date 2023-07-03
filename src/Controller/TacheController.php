@@ -29,17 +29,21 @@ class TacheController extends AbstractController
     }
    
     #[Route('/encours', name: 'app_tache_encours_index', methods: ['GET', 'POST'])]
-    public function indexStatus(TacheStatutRepository $tacheStatutRepository): Response
+    public function indexStatus(TacheRepository $tacheRepository, TacheStatutRepository $tacheStatutRepository): Response
     {
         $taches = array();
-        $tacheStatut = $tacheStatutRepository->findByLastStatus(2);
-        
+        $tacheStatut1 = $tacheStatutRepository->findLastByStatut(2);
+        $tacheStatut=$tacheRepository->findLastByStatus(1);
         foreach($tacheStatut as $ts){
-            //$taches[]=$ts->getTache();
+            $taches[]=$tacheRepository->find($ts['tache_id']);
+        }
+       
+        foreach($tacheStatut1 as $ts){
+           // $taches[]=$ts->getTache();
         }
 
-        return $this->render('tache/index1.html.twig', [
-            'taches' => $tacheStatut,
+        return $this->render('tache/index.html.twig', [
+            'taches' => $taches,
         ]);
     }
 
