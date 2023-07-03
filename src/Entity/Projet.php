@@ -96,6 +96,14 @@ class Projet
     {
         return $this->taches;
     }
+    public function getTotal(): int
+    {
+        
+        $total = 0;
+        foreach($this->taches as $tache)
+            $total += $tache->getNombreHeure();
+        return $total*$this->tauxHeure;
+    } 
 
     public function addTach(Tache $tach): self
     {
@@ -121,6 +129,6 @@ class Projet
 
     public function __toString()
     {
-        return $this->dateProjet->format('Y/m/d')." - ".$this->nom;
+        return $this->nom;//$this->dateProjet->format('Y/m/d')." - ".
     }
 }

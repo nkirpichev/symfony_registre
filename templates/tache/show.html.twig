@@ -40,6 +40,10 @@
                 <th>Statut</th>
                 <td><a href="{{ path('app_tache_statut_show', {'id':  tache.laststatut ? tache.laststatut.id :0  }) }}">{{ tache.laststatut }}</a></td>
             </tr>
+           <tr>
+                <th>Prestataire</th>
+                <td><a href="{{ path('app_personne_show', {'id': tache.prestataire ? tache.prestataire.id: 0  }) }}">{{ tache.prestataire }}</a></td>
+            </tr>
             <tr>
                 <th>Commentaire</th>
                 <td>{{ tache.commentaire }}</td>

@@ -14,6 +14,7 @@
                 <th>Date debut</th>
                 <th>Date achevement</th>
                 <th>Nombre heure</th>
+                <th>Prestataire</th>
                 <th>Statut</th>
                 <th>actions</th>
             </tr>
@@ -27,6 +28,7 @@
                 <td>{{ tache.dateDebut ? tache.dateDebut|date('Y-m-d') : '' }}</td>
                 <td>{{ tache.dateAchevement ? tache.dateAchevement|date('Y-m-d') : '' }}</td>
                 <td>{{ tache.nombreHeure }}</td>
+                <td><a href="{{ path('app_personne_show', {'id': tache.prestataire ? tache.prestataire.id: 0  }) }}">{{ tache.prestataire }}</a></td>
                 <td>{{ tache.laststatut }}</td>
                 <td>
                     <a href="{{ path('app_tache_show', {'id': tache.id}) }}">show</a>

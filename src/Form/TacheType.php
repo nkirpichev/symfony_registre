@@ -2,6 +2,7 @@
 
 namespace App\Form;
 
+use App\Entity\Personne;
 use App\Entity\Tache;
 use App\Entity\Projet;
 use Symfony\Component\Form\AbstractType;
@@ -21,7 +22,8 @@ class TacheType extends AbstractType
             ->add('nombreHeure')
             ->add('commentaire')
             ->add('projet', EntityType::class, ['class'=>Projet::class, 'expanded'=>false])
-            ->add('prestataire')
+           // ->add('prestataire')
+           ->add('prestataire', EntityType::class, ['class'=>Personne::class, 'expanded'=>false, "required" =>false, "choice_filter" =>'isPrestataire'])
             ->add('employe')
             ->add('categorie')
         ;

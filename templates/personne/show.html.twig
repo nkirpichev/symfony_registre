@@ -25,6 +25,26 @@
             </tr>
         </tbody>
     </table>
+  
+    {% if personne.isPrestataire %}
+    <div class = "pt-4 px-4">
+    <h3>Liste des taches</h3>
+
+        <ul>  
+        {% for tache in personne.tachesPrestataire %}
+
+            <li><a href="{{ path('app_tache_show', {'id': tache.id}) }}">{{ tache }}</a> - {{tache.laststatut}}</li>
+
+        {% else %}
+             <li colspan="3">no records found</li>
+        {% endfor %}
+        </ul>
+         
+    </div>
+
+        
+    {% endif %}
+
 
     <a href="{{ path('app_personne_index') }}">back to list</a>
 
