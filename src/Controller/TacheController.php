@@ -55,8 +55,8 @@ class TacheController extends AbstractController
         if(isset($projet_id) && $projet_id != 0) {
             $tache->setProjet($projetRepository->find($projet_id));};
         
-
-        $form = $this->createForm(TacheType::class, $tache);
+        $emploeys = $tache->getProjet()->getEntreprise()->getPersonnes();
+        $form = $this->createForm(TacheType::class, $tache,["emploeys"=>$emploeys]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

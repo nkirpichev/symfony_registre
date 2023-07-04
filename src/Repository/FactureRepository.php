@@ -39,6 +39,16 @@ class FactureRepository extends ServiceEntityRepository
         }
     }
 
+   public function findOneByProjet($projet): ?Facture
+   {
+       return $this->createQueryBuilder('f')
+           ->andWhere('f.projet = :val')
+           ->setParameter('val', $projet)
+           ->getQuery()
+           ->getOneOrNullResult()
+       ;
+   }
+
 //    /**
 //     * @return Facture[] Returns an array of Facture objects
 //     */

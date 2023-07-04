@@ -25,8 +25,8 @@
                 <td><a href="{{ path('app_projet_show', {'id': facture.projet.id}) }}">{{ facture.projet }}</a></td>
                 <td class="text-center pe-4">{{ facture.total }}</td>
                 <td>
-                    <a href="{{ path('app_facture_show', {'id': facture.id}) }}">show</a>
-                    <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">edit</a>
+                    <a href="{{ path('app_facture_show', {'id': facture.id}) }}">ouvrir</a>
+                    <a href="{{ path('app_facture_edit', {'id': facture.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -37,5 +37,5 @@
         </tbody>
     </table>
 
-    <a class='btn btn-primary' href="{{ path('app_facture_new') }}">Create new</a>
+    <a class='btn btn-primary' href="{{ path('app_facture_new') }}">Ajouter facture</a>
 {% endblock %}

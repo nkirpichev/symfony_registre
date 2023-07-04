@@ -31,8 +31,7 @@
                 <td><a href="{{ path('app_personne_show', {'id': tache.prestataire ? tache.prestataire.id: 0  }) }}">{{ tache.prestataire }}</a></td>
                 <td>{{ tache.laststatut }}</td>
                 <td>
-                    <a href="{{ path('app_tache_show', {'id': tache.id}) }}">show</a>
-                    <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
+                    <a href="{{ path('app_tache_edit', {'id': tache.id}) }}">modifier</a>
                     <a href="{{ path('app_tache_statut_new', {'tache_id': tache.id}) }}">statut</a>
                 </td>
             </tr>
@@ -44,5 +43,5 @@
         </tbody>
     </table>
 
-    <a class='btn btn-primary' href="{{ path('app_tache_new', {'projet_id': 0}) }}">Create new</a>
+    <a class='btn btn-primary' href="{{ path('app_tache_new', {'projet_id': 0}) }}">Ajouter tache</a>
 {% endblock %}

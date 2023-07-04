@@ -71,7 +71,6 @@ class TacheRepository extends ServiceEntityRepository
     $stmt = $conn->prepare($sql);
     $resultSet = $stmt->executeQuery(['value' => $value]);
 
-    // returns an array of arrays (i.e. a raw data set)
     return $resultSet->fetchAllAssociative();
 
         // 

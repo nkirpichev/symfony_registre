@@ -63,4 +63,9 @@ class Facture
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return 'N° '.$this->id.' du '.$this->dateFacture->format('d/m/Y');
+    }
 }

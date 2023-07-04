@@ -5,14 +5,14 @@
 {% block body %}
     <h1>Statut de tache - {{tache_statut.tache}}</h1>
       <div class="d-flex flex-row px-2">
-        <a class='mx-2' href="{{ path('app_tache_statut_edit', {'id': tache_statut.id}) }}">edit</a>
+        <a class='mx-2' href="{{ path('app_tache_statut_edit', {'id': tache_statut.id}) }}">modifiers</a>
         <a class='mx-2' href="{{ path('app_tache_statut_new', {'tache_id': tache_statut.tache.id}) }}">change statut</a>
         <a class='mx-2' href="{{ path('app_tache_statut_index') }}">back to list</a>
     </div>
     <table class="table">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th class="w-25">Id</th>
                 <td>{{ tache_statut.id }}</td>
             </tr>
             <tr>

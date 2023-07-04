@@ -13,8 +13,10 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class TacheType extends AbstractType
 {
+    
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $allowedEmp = $options['emploeys'];
         $builder
             ->add('description')
             ->add('dateDebut',DateType::class,array( 'widget'=>'single_text'))
@@ -22,9 +24,9 @@ class TacheType extends AbstractType
             ->add('nombreHeure')
             ->add('commentaire')
             ->add('projet', EntityType::class, ['class'=>Projet::class, 'expanded'=>false])
-           // ->add('prestataire')
-           ->add('prestataire', EntityType::class, ['class'=>Personne::class, 'expanded'=>false, "required" =>false, "choice_filter" =>'isPrestataire'])
-            ->add('employe')
+           // ->add('prestataire') ->add('employe')
+            ->add('prestataire', EntityType::class, ['class'=>Personne::class, 'expanded'=>false, "required" =>false, "choice_filter" =>'isPrestataire'])
+            ->add('employe', EntityType::class, ['class'=>Personne::class, 'expanded'=>false, "required" =>false, 'choices' => $allowedEmp ])
             ->add('categorie')
         ;
     }
@@ -33,6 +35,7 @@ class TacheType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Tache::class,
+            'emploeys' => null,
         ]);
     }
 }

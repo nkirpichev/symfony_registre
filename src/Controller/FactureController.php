@@ -5,6 +5,8 @@ namespace App\Controller;
 use App\Entity\Facture;
 use App\Form\FactureType;
 use App\Repository\FactureRepository;
+use App\Repository\ProjetRepository;
+use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -25,6 +27,8 @@ class FactureController extends AbstractController
     public function new(Request $request, FactureRepository $factureRepository): Response
     {
         $facture = new Facture();
+        $facture->setDateFacture(new DateTime('now'));
+
         $form = $this->createForm(FactureType::class, $facture);
         $form->handleRequest($request);
 
@@ -39,7 +43,32 @@ class FactureController extends AbstractController
             'form' => $form,
         ]);
     }
+   
+    #[Route('/new/{projet_id<\d+>}', name: 'app_facture_new_from_projet', methods: ['GET', 'POST'])]
+    public function newFromProjet(Request $request, FactureRepository $factureRepository,ProjetRepository $projetRepository, $projet_id): Response
+    {
+        $facture = new Facture();
+        $facture->setDateFacture(new DateTime('now'));
+        if(isset($projet_id) && $projet_id != 0) {
+            $projet = $projetRepository->find($projet_id);
+            $facture->setProjet($projet);
+            $facture->setTotal($projet->getTotal());
+        }; 
 
+        $form = $this->createForm(FactureType::class, $facture);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $factureRepository->save($facture, true);
+
+            return $this->redirectToRoute('app_facture_index', [], Response::HTTP_SEE_OTHER);
+        }
+
+        return $this->renderForm('facture/new.html.twig', [
+            'facture' => $facture,
+            'form' => $form,
+        ]);
+    }
     #[Route('/{id}', name: 'app_facture_show', methods: ['GET'])]
     public function show(Facture $facture): Response
     {

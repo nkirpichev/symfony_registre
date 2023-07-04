@@ -44,9 +44,7 @@ class TacheStatutRepository extends ServiceEntityRepository
        {
      
         return $this->createQueryBuilder('t')
-          // ->join('t.id', 'ts','WITH','ts.statut_id=:val')
-          // ->setParameter('val', $value)
-           //->orderBy('t.date', 'ASC')
+
            ->andWhere("not exists( select 1 from App\Entity\TacheStatut t2
                         where t2.tache = t.tache and t2.dateChangement>t.dateChangement )")
            ->andWhere('t.statut = :val')
@@ -54,8 +52,12 @@ class TacheStatutRepository extends ServiceEntityRepository
            ->getQuery()
            ->getResult();
         
-        // $conn = $this->getEntityManager()->getConnection();
-     
+        
+
+
+               // ->join('t.id', 'ts','WITH','ts.statut_id=:val')
+          // ->setParameter('val', $value)
+           //->orderBy('t.date', 'ASC')
         //  $sql = '
         //      SELECT t.* FROM tache_statut t
         //      where not exists( select 1 from tache_statut t2
@@ -67,36 +69,6 @@ class TacheStatutRepository extends ServiceEntityRepository
     
         //  return $resultSet->fetchAllAssociative();
     }    
-
-    public function findByLastStatusRRR($value): array
-    {
-
-
-
-     //$dql = "select t1, t2 from App\Entity\TacheStatut t1 join t1.tache t2 ";
-     //return $this->getEntityManager()
-    //     ->createQuery($dql)
-        // ->setParameter('nom',$value)
-       //  ->getResult();
- //where t1.statut.id = :nom
-        return $this->createQueryBuilder('t')
-            //->select('t')
-            ->Select('st')
-            ->addSelect('ts')
-            ->addSelect('max(t.dateChangement)')
-            ->join('App\Entity\Statut','st')
-            ->join('App\Entity\Tache','ts')
-            ->groupBy('t.tache, t.statut')
-            //->groupBy('')
-            ->andHaving('t.statut = :val')
-            ->setParameter('val', $value)
-           // ->orderBy('t.date', 'DESC')
-            ->getQuery()
-            ->getResult()
-        ;
-
-
-    }
 
 //    /**
 //     * @return TacheStatut[] Returns an array of TacheStatut objects

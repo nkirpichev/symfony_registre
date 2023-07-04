@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Entity\Projet;
 use App\Form\ProjetType;
+use App\Repository\FactureRepository;
 use App\Repository\ProjetRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,10 +42,11 @@ class ProjetController extends AbstractController
     }
 
     #[Route('/{id}', name: 'app_projet_show', methods: ['GET'])]
-    public function show(Projet $projet): Response
+    public function show(Projet $projet, FactureRepository $factureRepository): Response
     {
+        $facture = $factureRepository->findOneByProjet($projet);
         return $this->render('projet/show.html.twig', [
-            'projet' => $projet,
+            'projet' => $projet, 'facture' => $facture
         ]);
     }
 
@@ -60,8 +62,9 @@ class ProjetController extends AbstractController
             return $this->redirectToRoute('app_projet_index', [], Response::HTTP_SEE_OTHER);
         }
 
+  
         return $this->renderForm('projet/edit.html.twig', [
-            'projet' => $projet,
+            'projet' => $projet, 
             'form' => $form,
         ]);
     }

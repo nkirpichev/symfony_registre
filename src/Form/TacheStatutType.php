@@ -18,8 +18,8 @@ class TacheStatutType extends AbstractType
     {
         $builder
           //  ->add('dateChangement',TextType::class)//,array( 'widget'=>'single_text')
-            ->add('tache', EntityType::class, ['class'=>Tache::class, 'expanded'=>false])
-            ->add('statut', EntityType::class, ['class'=>Statut::class, 'expanded'=>false])            
+            ->add('tache', EntityType::class, ['class'=>Tache::class, 'expanded'=>false, 'disabled'=>true])
+            ->add('statut', EntityType::class, ['class'=>Statut::class, 'expanded'=>false, 'label'=>'Change statut a'])            
         ;
     }
 

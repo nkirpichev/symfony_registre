@@ -23,8 +23,8 @@
                 <td>{{ personne.prenom }}</td>
                 <td>{{ personne.isPrestataire ? 'Yes' : 'No' }}</td>
                 <td>
-                    <a href="{{ path('app_personne_show', {'id': personne.id}) }}">show</a>
-                    <a href="{{ path('app_personne_edit', {'id': personne.id}) }}">edit</a>
+                    <a href="{{ path('app_personne_show', {'id': personne.id}) }}">ouvrir</a>
+                    <a href="{{ path('app_personne_edit', {'id': personne.id}) }}">modifier</a>
                 </td>
             </tr>
         {% else %}
@@ -35,5 +35,5 @@
         </tbody>
     </table>
 
-    <a class='btn btn-primary' href="{{ path('app_personne_new') }}">Create new</a>
+    <a class='btn btn-primary' href="{{ path('app_personne_new') }}">Ajouter personne</a>
 {% endblock %}

@@ -3,17 +3,17 @@
 {% block title %}Tache{% endblock %}
 
 {% block body %}
-    <h1>Detail de tache - {{tache.description }}</h1>
+    <h1>Détail de tache - {{tache.description }}</h1>
       <div class="d-flex flex-row px-2">
-        <a class='mx-2' href="{{ path('app_tache_edit', {'id': tache.id}) }}">edit</a>
-        <a class='mx-2' href="{{ path('app_tache_statut_new', {'tache_id': tache.id}) }}">change statut</a>
+        <a class='mx-2' href="{{ path('app_tache_edit', {'id': tache.id}) }}">modifier</a>
+        <a class='mx-1' href="{{ path('app_tache_statut_new', {'tache_id': tache.id}) }}">change statut</a>
         <a class='mx-2' href="{{ path('app_tache_index') }}">back to list</a>
     </div>
 
-    <table class="table mx-3">
+    <table class="table mx-3 ">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th class="w-25">Id</th>
                 <td>{{ tache.id }}</td>
             </tr>
             <tr>

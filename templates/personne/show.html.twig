@@ -4,11 +4,15 @@
 
 {% block body %}
     <h1>Personne</h1>
+    <div class="d-flex flex-row px-2">
+        <a class='mx-2' href="{{ path('app_personne_index') }}">back to list</a>
+        <a class='mx-2' href="{{ path('app_personne_edit', {'id': personne.id}) }}">modifier</a>
+    </div>
 
     <table class="table mx-3">
         <tbody>
             <tr>
-                <th>Id</th>
+                <th class="w-25">Id</th>
                 <td>{{ personne.id }}</td>
             </tr>
             <tr>
@@ -46,9 +50,7 @@
     {% endif %}
 
 
-    <a href="{{ path('app_personne_index') }}">back to list</a>
 
-    <a href="{{ path('app_personne_edit', {'id': personne.id}) }}">edit</a>
 
     {{ include('personne/_delete_form.html.twig') }}
 {% endblock %}
