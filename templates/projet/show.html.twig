@@ -3,7 +3,7 @@
 {% block title %}Projet{% endblock %}
 
 {% block body %}
-    <h1>Détail de projet "{{ projet.nom }}"</h1> 
+    <h1>Détail du projet "{{ projet.nom }}"</h1> 
     <div class="d-flex flex-row px-2">
         <a class='mx-2' href="{{ path('app_projet_edit', {'id': projet.id}) }}">modifier</a>
         <a class='mx-1' href="{{ path('app_projet_index') }}">back to list</a>
@@ -57,7 +57,7 @@
              <li colspan="3">no records found</li>
         {% endfor %}
         </ul>
-         <a class='btn btn-primary' href="{{ path('app_tache_new', {'projet_id': projet.id}) }}">Add tache</a>
+         <a class='btn btn-primary' href="{{ path('app_tache_new', {'projet_id': projet.id}) }}">Ajouter tache</a>
     </div>
 
     <br><br>

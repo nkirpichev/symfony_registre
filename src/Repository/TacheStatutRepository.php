@@ -51,23 +51,7 @@ class TacheStatutRepository extends ServiceEntityRepository
            ->setParameter('val', $value)
            ->getQuery()
            ->getResult();
-        
-        
-
-
-               // ->join('t.id', 'ts','WITH','ts.statut_id=:val')
-          // ->setParameter('val', $value)
-           //->orderBy('t.date', 'ASC')
-        //  $sql = '
-        //      SELECT t.* FROM tache_statut t
-        //      where not exists( select 1 from tache_statut t2
-        //             where t2.tache_id = t.tache_id and t2.date_changement>t.date_changement)
-        //         and t.statut_id = :value 
-        //      ';
-        //  $stmt = $conn->prepare($sql);
-        //  $resultSet = $stmt->executeQuery(['value' => $value]);
-    
-        //  return $resultSet->fetchAllAssociative();
+              
     }    
 
 //    /**

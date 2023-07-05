@@ -73,30 +73,6 @@ class TacheRepository extends ServiceEntityRepository
 
     return $resultSet->fetchAllAssociative();
 
-        // 
-        // ORDER BY p.price ASC
-    //    return $this->createQueryBuilder('t')
-    //       // ->join('t.id', 'ts','WITH','ts.statut_id=:val')
-    //       // ->setParameter('val', $value)
-    //        //->orderBy('t.date', 'ASC')
-    //        ->andWhere("t.id in (select ts from App\Entity\TacheStatut ts)")
-    //        ->getQuery()
-    //        ->getResult()
-    //    ;
-
-    // $dql = "select t from App\Entity\Tache join App\Entity\TacheStatut ts where ts.statut_id = :nom";
-    // return $this->getEntityManager()
-    //     ->createQuery($dql)
-    //     ->setParameter('nom',$value)
-    //     ->getResult();
-
-    //    return $this->createQueryBuilder('t')
-    //        ->join('t.id', 'ts','WITH','ts.statut_id=:val')
-    //        ->setParameter('val', $value)
-    //        //->orderBy('t.date', 'ASC')
-    //        ->getQuery()
-    //        ->getResult()
-    //    ;
    }
 
 //    /**findByLastStatus

@@ -16,10 +16,12 @@ class TacheStatutType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $titleStatut = $options['titleStatut'];
+        
         $builder
           //  ->add('dateChangement',TextType::class)//,array( 'widget'=>'single_text')
             ->add('tache', EntityType::class, ['class'=>Tache::class, 'expanded'=>false, 'disabled'=>true])
-            ->add('statut', EntityType::class, ['class'=>Statut::class, 'expanded'=>false, 'label'=>'Change statut a'])            
+            ->add('statut', EntityType::class, ['class'=>Statut::class, 'expanded'=>false, 'label'=>$titleStatut ])   //  'Change statut a'       
         ;
     }
 
@@ -27,6 +29,7 @@ class TacheStatutType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => TacheStatut::class,
+            'titleStatut'=>'Statut',
         ]);
     }
 }

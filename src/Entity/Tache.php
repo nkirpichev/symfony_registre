@@ -172,6 +172,7 @@ class Tache
     {
         return $this->tacheStatuts;
     }
+    
     public function getLastStatut(): ?TacheStatut
     {
         return $this->tacheStatuts[0];

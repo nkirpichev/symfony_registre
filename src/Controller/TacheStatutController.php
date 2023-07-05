@@ -28,10 +28,13 @@ class TacheStatutController extends AbstractController
     {
         $tacheStatut = new TacheStatut();
         $tacheStatut->setDateChangement(new DateTime('now'));
+        $titleStatus = 'Statut actuel - undéfeni - changer statut en';
         if(isset($tache_id) && $tache_id != 0) {
-            $tacheStatut->setTache($tacheRepository->find($tache_id));};
+            $tacheStatut->setTache($tacheRepository->find($tache_id));
+             $titleStatus = 'Statut actuel - '.$tacheStatut->getTache()->getLastStatut().'. Changer statut en';
+        }
 
-        $form = $this->createForm(TacheStatutType::class, $tacheStatut);
+        $form = $this->createForm(TacheStatutType::class, $tacheStatut, ['titleStatut' => $titleStatus]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

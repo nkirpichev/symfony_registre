@@ -7,6 +7,7 @@ use App\Entity\Statut;
 use App\Entity\Tache;
 use App\Entity\TacheStatut;
 use App\Form\TacheType;
+use App\Repository\PersonneRepository;
 use App\Repository\ProjetRepository;
 use App\Repository\StatutRepository;
 use App\Repository\TacheRepository;
@@ -48,14 +49,18 @@ class TacheController extends AbstractController
     }
 
     #[Route('/new/{projet_id<\d+>}', name: 'app_tache_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, TacheRepository $tacheRepository, ProjetRepository $projetRepository, $projet_id, StatutRepository $statutRepository, TacheStatutRepository $tacheStatutRepository): Response
+    public function new(Request $request, PersonneRepository $personneRepository,TacheRepository $tacheRepository, ProjetRepository $projetRepository, $projet_id, StatutRepository $statutRepository, TacheStatutRepository $tacheStatutRepository): Response
     {
         $tache = new Tache();
         $tache->setDateDebut(new DateTime('now'));
         if(isset($projet_id) && $projet_id != 0) {
-            $tache->setProjet($projetRepository->find($projet_id));};
+            $tache->setProjet($projetRepository->find($projet_id));
+            $emploeys = $tache->getProjet()->getEntreprise()->getPersonnes();
+        }else{
+            $emploeys = $personneRepository->findAll();
+        };
         
-        $emploeys = $tache->getProjet()->getEntreprise()->getPersonnes();
+       
         $form = $this->createForm(TacheType::class, $tache,["emploeys"=>$emploeys]);
         $form->handleRequest($request);
 

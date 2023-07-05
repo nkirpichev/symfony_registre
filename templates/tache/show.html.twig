@@ -3,10 +3,10 @@
 {% block title %}Tache{% endblock %}
 
 {% block body %}
-    <h1>Détail de tache - {{tache.description }}</h1>
+    <h1>Détail de la tache - {{tache.description }}</h1>
       <div class="d-flex flex-row px-2">
         <a class='mx-2' href="{{ path('app_tache_edit', {'id': tache.id}) }}">modifier</a>
-        <a class='mx-1' href="{{ path('app_tache_statut_new', {'tache_id': tache.id}) }}">change statut</a>
+        <a class='mx-1' href="{{ path('app_tache_statut_new', {'tache_id': tache.id}) }}">changer statut</a>
         <a class='mx-2' href="{{ path('app_tache_index') }}">back to list</a>
     </div>
 
@@ -52,7 +52,7 @@
     </table>
 
     <div class = "pt-4 px-4">
-    <h3>Histoire de statut</h3>
+    <h3>Historique du statut</h3>
 
         <ul>  
         {% for status in tache.tacheStatuts %}
