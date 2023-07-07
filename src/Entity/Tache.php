@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: TacheRepository::class)]
 class Tache
@@ -17,12 +18,15 @@ class Tache
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
+    #[Groups('tache')]
     private ?string $description = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE)]
+    #[Groups('tache')]
     private ?\DateTimeInterface $dateDebut = null;
 
     #[ORM\Column(type: Types::DATE_MUTABLE, nullable: true)]
+    #[Groups('tache')]
     private ?\DateTimeInterface $dateAchevement = null;
 
     #[ORM\Column(nullable: true)]
@@ -32,9 +36,11 @@ class Tache
     private ?string $commentaire = null;
 
     #[ORM\ManyToOne(inversedBy: 'taches')]
+    #[Groups('tache')]
     private ?Projet $projet = null;
 
     #[ORM\ManyToOne(inversedBy: 'tachesPrestataire')]
+    #[Groups('tache')]
     private ?Personne $prestataire = null;
 
     #[ORM\ManyToOne(inversedBy: 'tachesEmploye')]
@@ -44,6 +50,7 @@ class Tache
     private ?Categorie $categorie = null;
 
     #[ORM\OneToMany(mappedBy: 'tache', targetEntity: TacheStatut::class)]
+    #[Groups('tache')]
     #[ORM\OrderBy(['dateChangement'=>'desc'])]
     private Collection $tacheStatuts;
 
@@ -173,7 +180,7 @@ class Tache
         return $this->tacheStatuts;
     }
     
-    public function getLastStatut(): ?TacheStatut
+    public function getLastStatut() 
     {
         return $this->tacheStatuts[0];
     }

@@ -16,10 +16,11 @@ class FactureType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
+        $allowedProjets = $options['projets'];
         $builder
             ->add('dateFacture',DateType::class,array( 'widget'=>'single_text'))
             ->add('total',TextType::class,array("label" => "Total, $"))
-            ->add('projet', EntityType::class, ['class'=>Projet::class, 'expanded'=>false])
+            ->add('projet', EntityType::class, ['class'=>Projet::class, 'expanded'=>false, "required" =>true, 'choices' => $allowedProjets])
         ;
     }
 
@@ -27,6 +28,7 @@ class FactureType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => Facture::class,
+            'projets' => null,
         ]);
     }
 }

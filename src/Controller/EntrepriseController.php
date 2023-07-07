@@ -67,7 +67,6 @@ class EntrepriseController extends AbstractController
     public function index_detail(Entreprise $entreprise, $id): Response
     {
         
-        
         return $this->render('entreprise/show.html.twig', [
             'entreprise' => $entreprise, 'employes'=> $entreprise->getPersonnes(),
             'projets'=> $entreprise->getProjets()

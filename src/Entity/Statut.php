@@ -6,6 +6,7 @@ use App\Repository\StatutRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 #[ORM\Entity(repositoryClass: StatutRepository::class)]
 class Statut
@@ -16,6 +17,7 @@ class Statut
     private ?int $id = null;
 
     #[ORM\Column(length: 100)]
+    #[Groups('statut')]
     private ?string $nom = null;
 
     #[ORM\OneToMany(mappedBy: 'statut', targetEntity: TacheStatut::class)]

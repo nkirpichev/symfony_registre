@@ -25,8 +25,8 @@
                 <td>{{ tache.id }}</td>
                 <td><a href="{{ path('app_projet_show', {'id': tache.projet.id}) }}">{{ tache.projet }}</a></td>
                 <td><a href="{{ path('app_tache_show', {'id': tache.id}) }}">{{ tache.description }}</a></td>
-                <td>{{ tache.dateDebut ? tache.dateDebut|date('Y-m-d') : '' }}</td>
-                <td>{{ tache.dateAchevement ? tache.dateAchevement|date('Y-m-d') : '' }}</td>
+                <td>{{ tache.dateDebut ? tache.dateDebut|date('d-m-Y') : '' }}</td>
+                <td>{{ tache.dateAchevement ? tache.dateAchevement|date('d-m-Y') : '' }}</td>
                 <td>{{ tache.nombreHeure }}</td>
                 <td><a href="{{ path('app_personne_show', {'id': tache.prestataire ? tache.prestataire.id: 0  }) }}">{{ tache.prestataire }}</a></td>
                 <td>{{ tache.laststatut }}</td>

@@ -24,12 +24,14 @@ class FactureController extends AbstractController
     }
 
     #[Route('/new', name: 'app_facture_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, FactureRepository $factureRepository): Response
+    public function new(Request $request, FactureRepository $factureRepository,ProjetRepository $projetRepository): Response
     {
         $facture = new Facture();
         $facture->setDateFacture(new DateTime('now'));
 
-        $form = $this->createForm(FactureType::class, $facture);
+        $projets = $projetRepository->findProjetSansFacture();
+        
+        $form = $this->createForm(FactureType::class, $facture,["projets"=>$projets]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -54,8 +56,9 @@ class FactureController extends AbstractController
             $facture->setProjet($projet);
             $facture->setTotal($projet->getTotal());
         }; 
+        $projets = $projetRepository->findProjetSansFacture();
 
-        $form = $this->createForm(FactureType::class, $facture);
+        $form = $this->createForm(FactureType::class, $facture,["projets"=>$projets]);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {

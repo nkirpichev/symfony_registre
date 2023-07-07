@@ -3,7 +3,7 @@
 {% block title %}Projet index{% endblock %}
 
 {% block body %}
-    <h1>Liste des projets</h1>
+    <h1>Liste des projets {{statut is not defined?"":statut}}</h1>
 
     <table class="table mx-3 fs-6">
         <thead>
@@ -22,7 +22,7 @@
             <tr>
                 <td>{{ projet.id }}</td>
                 <td><a href="{{ path('app_projet_show', {'id': projet.id}) }}">{{ projet.nom }}</a></td>
-                <td>{{ projet.dateProjet ? projet.dateProjet|date('Y-m-d') : '' }}</td>
+                <td>{{ projet.dateProjet ? projet.dateProjet|date('d-m-Y') : '' }}</td>
                 <td class="text-center">{{ projet.tauxHeure }}</td>
                 <td class="text-center">{{ projet.getTotal }}</td>
                 <td><a href="{{ path('app_entreprise_detail', {'id': projet.entreprise.id}) }}">{{ projet.entreprise }}</a></td>

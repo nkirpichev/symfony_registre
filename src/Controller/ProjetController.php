@@ -41,6 +41,17 @@ class ProjetController extends AbstractController
         ]);
     }
 
+    #[Route('/encours', name: 'app_projet_encours_index', methods: ['GET', 'POST'])]
+    public function indexStatus(ProjetRepository $projetRepository): Response
+    {
+        $taches = array();
+        $projets = $projetRepository->findProjetSansFacture();
+
+        return $this->render('projet/index.html.twig', [
+            'projets' => $projets, 'statut'=>'en cours'
+        ]);
+    }  
+
     #[Route('/{id}', name: 'app_projet_show', methods: ['GET'])]
     public function show(Projet $projet, FactureRepository $factureRepository): Response
     {
@@ -49,7 +60,7 @@ class ProjetController extends AbstractController
             'projet' => $projet, 'facture' => $facture
         ]);
     }
-
+ 
     #[Route('/{id}/edit', name: 'app_projet_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Projet $projet, ProjetRepository $projetRepository): Response
     {

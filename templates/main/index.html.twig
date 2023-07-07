@@ -11,12 +11,20 @@
 <div class="example-wrapper"></div>#}
     <h1>Registre</h1>
 
-    
+    <p>Tout</p>
     <ul>
-        <li><a href="{{ path('app_entreprise') }}">Liste des entreprises</a></code></li>
-        <li><a href="{{ path('app_projet_index') }}">Liste des projets</a></code></li> 
-        <li><a href="{{ path('app_facture_index') }}">Liste des factures</a></code></li>
-        <li><a href="{{ path('app_tache_encours_index') }}">Taches à faire</a></code></li>
+        <li><a href="{{ path('app_entreprise') }}">Liste des entreprises</a></li>
+        <li><a href="{{ path('app_projet_index') }}">Liste des projets</a></li> 
+        <li><a href="{{ path('app_facture_index') }}">Liste des factures</a></li>
+    </ul> 
+    <p>Actuel</p>
+    <ul>
+        <li><a href="{{ path('app_projet_encours_index') }}">Projets en cours</a></li>
+        <li><a href="{{ path('app_tache_encours_index') }}">Taches à faire</a></li>
      </ul>
-
+    <p>API</p>
+    <ul>
+        <li><a href="{{ path('api_taches') }}">Liste des taches</a></li>
+        <li><a href="{{ path('api_tache', {'id': 1}) }}">Une tache</a></li>
+     </ul>
 {% endblock %}

@@ -14,9 +14,11 @@ use App\Repository\TacheRepository;
 use App\Repository\TacheStatutRepository;
 use DateTime;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Serializer\SerializerInterface;
 
 #[Route('/tache')]
 class TacheController extends AbstractController
@@ -29,6 +31,27 @@ class TacheController extends AbstractController
         ]);
     }
    
+    #[Route('/api', name: 'api_taches', methods: ['GET'])]
+    public function api_taches(TacheRepository $tacheRepository, SerializerInterface $serializer) : JsonResponse
+    {
+        $taches = $tacheRepository->findAll();
+        $tachesJson = $serializer->serialize($taches , 'json', ['groups' => ['tache', 'projet', 'personne', 'statut']]);
+        
+        return new JsonResponse($tachesJson, Response::HTTP_OK,[],true);
+    }
+
+    #[Route('/api/{id}', name: 'api_tache', methods: ['GET'])]
+    public function api_tache(TacheRepository $tacheRepository, SerializerInterface $serializer, $id) : JsonResponse
+    {
+        $tache = $tacheRepository->find($id);
+        if(isset($tache)){
+            $tacheJson = $serializer->serialize($tache , 'json', ['groups' => ['tache', 'projet', 'personne', 'statut']]);
+            return new JsonResponse($tacheJson, Response::HTTP_OK,[],true);
+        }
+       
+        return new Response('', Response::HTTP_NOT_FOUND);
+    }
+
     #[Route('/encours', name: 'app_tache_encours_index', methods: ['GET', 'POST'])]
     public function indexStatus(TacheRepository $tacheRepository, TacheStatutRepository $tacheStatutRepository): Response
     {
@@ -44,7 +67,7 @@ class TacheController extends AbstractController
         }
 
         return $this->render('tache/index.html.twig', [
-            'taches' => $taches, 'statut'=>'a faire'
+            'taches' => $taches, 'statut'=>'à faire'
         ]);
     }
 

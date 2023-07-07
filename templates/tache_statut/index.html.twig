@@ -19,7 +19,7 @@
         {% for tache_statut in tache_statuts %}
             <tr>
                 <td>{{ tache_statut.id }}</td>
-                <td>{{ tache_statut.dateChangement ? tache_statut.dateChangement|date('Y-m-d') : '' }}</td>
+                <td>{{ tache_statut.dateChangement ? tache_statut.dateChangement|date('d-m-Y') : '' }}</td>
                  <td><a href="{{ path('app_tache_show', {'id': tache_statut.tache.id}) }}">{{ tache_statut.tache }}</a></td>
                 <td>{{ tache_statut.statut }}</td>
                 <td>
