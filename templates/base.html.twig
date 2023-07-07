@@ -28,7 +28,17 @@
             <li class="nav-item"><a class="nav-link" href="{{ path('app_personne_index') }}">Personnes</a></li>  
             <li class="nav-item"><a class="nav-link" href="{{ path('app_categorie_index') }}">Categories</a></li>                         
         </ul>
-        </header>
+        
+
+        <div class="col-md-3 text-end">
+            {% if app.user %}
+                <a class="btn  btn-outline-primary me-2" href="{{ path('app_logout') }}">Logout</a>
+            {% else %} 
+                <a class="btn  btn-outline-primary me-2" href="{{ path('app_login') }}">Login</a>
+            {% endif %}
+            
+      </div>
+      </header>
     </div>
 
        {# <a href="{{ path('app_main') }}">accueil</a>
